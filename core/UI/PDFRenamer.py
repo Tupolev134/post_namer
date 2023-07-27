@@ -119,8 +119,8 @@ class PDFRenamer(QMainWindow):
         self.main_layout.addLayout(self.naming_section_layout)
         self.main_layout.addWidget(_get_line_widget())
 
-        subprocess.run(["open", "-a", "Preview",
-                        self.naming_profile.path_to_scans + "/" + self.naming_controller.current_file.file_name])
+        os.startfile(self.naming_profile.path_to_scans + "/" + self.naming_controller.current_file.file_name)
+
         self.update_labels()
         self.recipient_input.setFocus()
         self.raise_()
@@ -177,11 +177,13 @@ class PDFRenamer(QMainWindow):
 
     def next_file(self):
         if self.recipient_input.text() == "" and self.origin_input.text() == "" and self.reference_input.text() == "" \
-                and self.identification_input.text() == "": pass
-        else: self.update_file_name()
+                and self.identification_input.text() == "":
+            pass
+        else:
+            self.update_file_name()
         self.naming_controller.load_next_file()
-        subprocess.run(["open", "-a", "Preview",
-                        self.naming_profile.path_to_scans + "/" + self.naming_controller.current_file.file_name])
+        file_path = os.path.join(self.naming_profile.path_to_scans, self.naming_controller.current_file.file_name)
+        os.startfile(file_path)
         self.update_labels()
         self.progress.setValue(self.naming_controller.index_current_file)
         self.raise_()
@@ -217,7 +219,7 @@ class PDFRenamer(QMainWindow):
         QFileDialog.getExistingDirectory(self, "Open a folder")
 
     def switch_back_to_main_menu(self):
-        subprocess.run(["osascript", "-e", 'quit app "Preview"'])
+        # subprocess.run(["osascript", "-e", 'quit app "Preview"'])
         self.switch_requested.emit()
 
 if __name__ == '__main__':
