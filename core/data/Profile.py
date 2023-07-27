@@ -2,10 +2,11 @@ import json
 
 
 class Profile:
-    def __init__(self, name=None, path=None, path_to_scans=None):
+    def __init__(self, name=None, path=None, path_to_scans=None, path_to_this_profile=None):
         self.name = name
         self.path_to_root = path
         self.path_to_scans = path_to_scans
+        self.path_to_this_profile = path_to_this_profile
         self.recipients = list()
         self.origins = list()
         self.references = list()
@@ -16,6 +17,7 @@ class Profile:
             "name": self.name,
             "path_to_root": self.path_to_root,
             "path_to_scans": self.path_to_scans,
+            "path_to_this_profile": self.path_to_this_profile,
             "recipients": self.recipients,
             "origins": self.origins,
             "references": self.references,
@@ -24,7 +26,7 @@ class Profile:
 
     @classmethod
     def from_dict(cls, data: dict):
-        profile = cls(data["name"], data["path_to_root"], data["path_to_scans"])
+        profile = cls(data["name"], data["path_to_root"], data["path_to_scans"], data['path_to_this_profile'])
         profile.recipients = data.get("recipients", [])
         profile.origins = data.get("origins", [])
         profile.references = data.get("references", [])

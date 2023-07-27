@@ -25,7 +25,7 @@ class MainMenu(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.profile = Profile.load_from_json("/Users/tupolev/Desktop/Coding/Python/post_namer/test_data/profile.json")
+        self.profile = Profile.load_from_json("/Users/tupolev/Desktop/Coding/Python/post_namer/test_data/profile_OL.json")
         self.template = EmailTemplate.load_from_json("/Users/tupolev/Desktop/Coding/Python/post_namer/test_data/template.json")
 
         # Sections
@@ -210,7 +210,7 @@ class MainMenu(QMainWindow):
 
                     # Everything else is part of the identification
                     self.profile.add_identification(" - ".join(parts[3:-1]))
-        self.profile.save_to_json("/Users/tupolev/Desktop/Coding/Python/post_namer/test_data/profile.json")
+        self.profile.save_to_json(self.profile.path_to_this_profile)
         print(f"files viewed: {num_files_viewed}")
         print(f"split errors: {num_split_err}")
         print(f"date errors: {num_date_err}")
