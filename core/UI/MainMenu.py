@@ -25,8 +25,8 @@ class MainMenu(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.profile = Profile.load_from_json("/Users/tupolev/Desktop/Coding/Python/post_namer/test_data/profile_OL.json")
-        self.template = EmailTemplate.load_from_json("/Users/tupolev/Desktop/Coding/Python/post_namer/test_data/template.json")
+        self.profile = Profile.load_from_json("C:\Users\TheOverlanders\Desktop\Coding\post_namer\test_data\profile_OL.json")
+        self.template = EmailTemplate.load_from_json("C:\Users\TheOverlanders\Desktop\Coding\post_namer\test_data\template.json")
 
         # Sections
         self.heading_section_layout = None
