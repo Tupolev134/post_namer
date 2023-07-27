@@ -53,6 +53,8 @@ class MainMenu(QMainWindow):
         self.populate_stats_label.setStyleSheet("background-color: grey; border-radius: 10px; padding: 6px;")
         self.populate_profile_btn = QPushButton("Populate current Profile", self)
         # ----------- Email Section
+        self.email_expand_btn = QPushButton("Show Emailer", self)
+
         self.template_label = QLabel("No Email Template Loaded")
         self.template_label.setStyleSheet("background-color: grey; border-radius: 10px; padding: 6px;")
         self.load_email_template_btn = QPushButton("Load a Email Template", self)
@@ -137,6 +139,11 @@ class MainMenu(QMainWindow):
 
     def create_email_section(self):
         self.email_section_layout = QGridLayout()
+        self.email_section_layout.addWidget(self.email_expand_btn, 0, 0)
+        self.email_expand_btn.clicked.connect(self.expand_email_section)
+
+    def expand_email_section(self):
+        self.email_section_layout = QGridLayout()
         self.email_section_layout.addWidget(self.template_label, 0, 0)
         self.email_section_layout.addWidget(self.load_email_template_btn, 0, 1)
         self.email_section_layout.addWidget(self.sender_label, 1, 0)
@@ -161,6 +168,7 @@ class MainMenu(QMainWindow):
         # self.main_layout.addWidget(self.configure_existing_profile)
 
         # self.loading_section_layout.addWidget(_get_line_widget())
+        self.main_layout.addLayout(self.email_section_layout)
 
     def create_starting_section(self):
         self.starting_section_layout = QVBoxLayout()

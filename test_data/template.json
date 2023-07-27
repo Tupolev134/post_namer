@@ -1,0 +1,9 @@
+{
+  "template_name": "Post Fasanenstraße",
+  "sender": "post@mrp-assets.de",
+  "to": ["verwaltung@mrp-assets.de"],
+  "cc": ["K.smura@mrp-assets.de", "office@mrp-assets.de"],
+  "bcc": ["l.smura@mrp-assets.de"],
+  "subject": "Post Finanzen - Fasanenstraße - ",
+  "body": "Hallo,\n\nanbei die Post aus der Fasanenstraße.\n\nViele Grüße\nJonas\n"
+}
