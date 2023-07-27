@@ -11,6 +11,12 @@ from PyQt6.QtCore import Qt, pyqtSignal, QStringListModel, QDate
 from core.NamingController import NamingController
 
 
+def clean_file_name(file_name):
+    invalid_chars = '\/:*?"<>|'
+    for char in invalid_chars:
+        file_name = file_name.replace(char, '_')
+    return file_name
+
 def _get_line_widget():
     line = QFrame()
     line.setFrameShape(QFrame.Shape.HLine)
@@ -119,7 +125,7 @@ class PDFRenamer(QMainWindow):
         self.main_layout.addLayout(self.naming_section_layout)
         self.main_layout.addWidget(_get_line_widget())
 
-        os.startfile(self.naming_profile.path_to_scans + "/" + self.naming_controller.current_file.file_name)
+        # os.startfile(self.naming_profile.path_to_scans + "/" + self.naming_controller.current_file.file_name)
 
         self.update_labels()
         self.recipient_input.setFocus()
@@ -138,9 +144,8 @@ class PDFRenamer(QMainWindow):
         self.next_button.setAutoDefault(True)
         self.main_menu_button.clicked.connect(self.switch_back_to_main_menu)
         self.next_button.clicked.connect(self.next_file)
-        self.close_preview_button.clicked.connect(lambda: subprocess.run(["osascript", "-e", 'quit app "Preview"']))
-        self.open_current_preview_button.clicked.connect(lambda: subprocess.run(["open", "-a", "Preview",
-                                                                                 self.naming_profile.path_to_scans + "/" + self.naming_controller.current_file.file_name]))
+        # self.close_preview_button.clicked.connect(lambda: subprocess.run(["osascript", "-e", 'quit app "Preview"']))
+        self.open_current_preview_button.clicked.connect(lambda: os.startfile(self.naming_profile.path_to_scans + "/" + self.naming_controller.current_file.file_name))
 
     def create_naming_section(self):
         self.naming_section_layout.addWidget(self.recipient_label, 0, 0)
@@ -190,7 +195,9 @@ class PDFRenamer(QMainWindow):
         self.recipient_input.setFocus()
 
     def update_file_name(self):
-        new_file_name = self.recipient_input.text() + " - " + self.origin_input.text() + " - " + self.reference_input.text() + " - " + self.identification_input.text().replace('/',':') + " - " + self.date_input.text() + ".pdf"
+        new_file_name = self.recipient_input.text() + " - " + self.origin_input.text() + " - " + self.reference_input.text() + " - " + self.identification_input.text().replace(
+            '/', ':') + " - " + self.date_input.text() + ".pdf"
+        new_file_name = clean_file_name(new_file_name)
         self.rename_file(self.naming_profile.path_to_scans + "/" + self.naming_controller.current_file.file_name,
                          new_file_name)
 
